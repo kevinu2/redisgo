@@ -292,8 +292,7 @@ func (c *Cacher) HGetObject(key, field string, val interface{}) error {
 
 // HGetAll HGetAllStruct("key", &val)
 func (c *Cacher) HGetAllStruct(key string, val interface{}) error {
-	v, err := redis.Values(c.Do("
-				    ", c.getKey(key)))
+	v, err := redis.Values(c.Do("HGETALL", c.getKey(key)))
 	if err != nil {
 		return err
 	}
@@ -312,7 +311,7 @@ func (c *Cacher) HGetAll(key string) (result map[string]string, err error) {
 
 // HGetAll HGetAllValues("key")
 func (c *Cacher) HGetAllValues(key string) (result []interface{}, err error) {
-	return r.Values(c.Conn.Do("HGETALL", c.getKey(key))
+	return c.Values(c.Conn.Do("HGETALL", c.getKey(key))
 }
 
 // HGetAll HGetAllInterface("key")
