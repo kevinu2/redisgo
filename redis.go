@@ -290,8 +290,8 @@ func (c *Cacher) HGetObject(key, field string, val interface{}) error {
 	return c.decode(reply, err, val)
 }
 
-// HGetAll HGetAll("key", &val)
-func (c *Cacher) HGetAll(key string, val interface{}) error {
+// HGetAll HGetAllStruct("key", &val)
+func (c *Cacher) HGetAllStruct(key string, val interface{}) error {
 	v, err := redis.Values(c.Do("HGETALL", c.getKey(key)))
 	if err != nil {
 		return err
@@ -303,6 +303,22 @@ func (c *Cacher) HGetAll(key string, val interface{}) error {
 	//fmt.Printf("%+v\n", val)
 	return err
 }
+
+// HGetAll HGetAll("key")
+func (c *Cacher) HGetAll(key string) (result map[string]string, err error) {
+	return redis.StringMap(c.Do("HGETALL", c.getKey(key)))
+}
+
+// HGetAll HGetAllValues("key")
+func (c Client) HGetAllValues(key string) (result []interface{}, err error) {
+	return r.Values(c.Conn.Do("HGETALL", c.getKey(key))
+}
+
+// HGetAll HGetAllInterface("key")
+func (c Client) HGetAllInterface(key string) (result interface{}, err error) {
+	return c.Conn.Do("HGETALL", c.getKey(key))
+}
+
 
 /**
 Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）
