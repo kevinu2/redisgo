@@ -311,7 +311,7 @@ func (c *Cacher) HGetAll(key string) (result map[string]string, err error) {
 
 // HGetAll HGetAllValues("key")
 func (c *Cacher) HGetAllValues(key string) (result []interface{}, err error) {
-	c.HGetAllValues(c.getKey(key))
+	 return c.HGetAllValues(c.getKey(key))
 }
 
 // HGetAll HGetAllInterface("key")
