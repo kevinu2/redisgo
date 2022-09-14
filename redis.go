@@ -319,6 +319,9 @@ func (c *Cacher) HGetAllInterface(key string) (result interface{}, err error) {
 	return c.HGetAllInterface(c.getKey(key))
 }
 
+func (c *Cacher) HDel(key, field string) (result interface{}, err error) {
+	return c.Do("HDEL", c.getKey(key), field)
+}
 
 /**
 Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）
