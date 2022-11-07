@@ -309,14 +309,19 @@ func (c *Cacher) HGetAll(key string) (result map[string]string, err error) {
 	return redis.StringMap(c.Do("HGETALL", c.getKey(key)))
 }
 
+// HKEYS HGetAllKeys("key")
+func (c *Cacher) HGetAllKeys(key string) (result []string, err error) {
+	return redis.Strings(c.Do("HKEYS", c.getKey(key)))
+}
+
 // HGetAll HGetAllValues("key")
 func (c *Cacher) HGetAllValues(key string) (result []interface{}, err error) {
-	 return c.HGetAllValues(c.getKey(key))
+	 return redis.Values(c.Do("HGETALL", c.getKey(key)))
 }
 
 // HGetAll HGetAllInterface("key")
 func (c *Cacher) HGetAllInterface(key string) (result interface{}, err error) {
-	return c.HGetAllInterface(c.getKey(key))
+	return c.Do("HGETALL", c.getKey(key))
 }
 
 func (c *Cacher) HDel(key, field string) (result interface{}, err error) {
