@@ -233,6 +233,11 @@ func (c *Cacher) HMSet(key string, val interface{}, expire int) (err error) {
 	return
 }
 
+// HMGet HMGet(keys, fields)
+func (c *Cacher) HMGet (key string, fields []string) ([]string, error) {
+	return redis.Strings(c.Do("HMGET", c.getKey(key), fields))
+}
+
 /** Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。 **/
 
 // HSet 将哈希表 key 中的字段 field 的值设为 val
